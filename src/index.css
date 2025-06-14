@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+* {
+  margin: 10;
+  padding: 10;
+}
+
+html,
+body {
+  overflow: visible;
+  /* background-color: darkslategray; */
+}
