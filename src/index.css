@@ -1,3 +1,5 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&display=swap"); */
+
 @import "tailwindcss";
 
 * {
@@ -8,5 +10,62 @@
 html,
 body {
   overflow: visible;
-  /* background-color: darkslategray; */
+  /* background-color: #006041; */
+}
+
+/* @plugin "@tailwindcss/typography"; */
+
+@font-face {
+  font-family: "Dumba";
+  src: url("./src/fonts/Dumba.woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Onder";
+  src: url("./src/fonts/Onder-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "karla";
+  src: url("../src/fonts/Karla-VariableFont_wght.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./src/fonts/PlusJakartaSans-VariableFont_wght.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("./src/fonts/SpaceGrotesk-VariableFont_wght.ttf");
+  font-weight: 400;
+}
+@theme {
+  /* fonts */
+  --font-dumba: "Dumba", normal;
+  --font-onder: "Onder", normal;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-karla: "Karla", sans-serif;
+  --font-gortesk: "Space Grotesk", sans-serif;
+
+  /* tracking */
+  --tracking-1: 0.5em;
+}
+
+@layer components {
+  .titleHeader {
+    @apply font-onder w-full text-xl lg:text-2xl;
+  }
+
+  .section {
+    @apply flex text-white h-screen justify-center items-center text-wrap;
+  }
+
+  .paragraph {
+    @apply font-gortesk  text-lg  lg:text-3xl;
+  }
 }

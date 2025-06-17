@@ -7,16 +7,14 @@ import * as THREE from "three";
 const CoffeeModel = forwardRef(
   (
     {
-      scale = 2,
-      initialPosition = [0, -5, 0],
       scrollBasedAnimation = true,
       sectionIndex = 0, // Which section this model represents
-      totalSections = 4, // Total number of sections
+      totalSections = 10, // Total number of sections
       ...props
     },
     ref
   ) => {
-    const { materials, nodes } = useGLTF("./model/cup-fore.glb", true);
+    const { materials, nodes } = useGLTF("./model/cup-foree.glb", true);
     const scroll = useScroll();
 
     // Leva controls for animation parameters
@@ -25,7 +23,7 @@ const CoffeeModel = forwardRef(
       rotationSpeed,
       floatAmplitude,
       floatSpeed,
-      scaleVariation,
+      // scaleVariation,
       positionSmoothing,
       materialOpacity,
       materialRoughness,
@@ -53,87 +51,87 @@ const CoffeeModel = forwardRef(
     const rotationControls = {};
 
     // Create dynamic position controls for each section
-    for (let i = 0; i < totalSections; i++) {
-      const sectionControls = useControls(
-        `Model ${sectionIndex + 1} - Section ${i + 1} Position`,
-        {
-          [`position_${i}`]: {
-            value: {
-              x: [-3, 3, 0, 0, -2, 2, -1, 1][i] || 0,
-              y: [0, 0, 2, -2, 1, -1, 0.5, -0.5][i] || 0,
-              z: [0, 0, 0, 2, -1, 1, -0.5, 0.5][i] || 0,
-            },
-            step: 0.1,
-          },
-          [`scale_${i}`]: {
-            value: [0.4, 0.6, 0.8, 0.5, 0.7, 0.3, 0.9, 0.6][i] || 0.5,
-            min: 0.1,
-            max: 3,
-            step: 0.05,
-          },
-          [`rotationX_${i}`]: {
-            value: 0,
-            min: -180,
-            max: 180,
-            step: 1,
-          },
-          [`rotationY_${i}`]: {
-            value: [0, 90, 180, 270, 45, 135, 225, 315][i] || 0,
-            min: -180,
-            max: 180,
-            step: 1,
-          },
-          [`rotationZ_${i}`]: {
-            value: 0,
-            min: -180,
-            max: 180,
-            step: 1,
-          },
-        }
-      );
+    // for (let i = 0; i < totalSections; i++) {
+    //   const sectionControls = useControls(
+    //     `Model ${sectionIndex + 1} - Section ${i + 1} Position`,
+    //     {
+    //       [`position_${i}`]: {
+    //         value: {
+    //           x: [-3, 3, 0, 0, -2, 2, -1, 1][i] || 0,
+    //           y: [0, 0, 2, -2, 1, -1, 0.5, -0.5][i] || 0,
+    //           z: [0, 0, 0, 2, -1, 1, -0.5, 0.5][i] || 0,
+    //         },
+    //         step: 0.1,
+    //       },
+    //       [`scale_${i}`]: {
+    //         value: [0.4, 0.6, 0.8, 0.5, 0.7, 0.3, 0.9, 0.6][i] || 0.5,
+    //         min: 0.1,
+    //         max: 3,
+    //         step: 0.05,
+    //       },
+    //       [`rotationX_${i}`]: {
+    //         value: 0,
+    //         min: -180,
+    //         max: 180,
+    //         step: 1,
+    //       },
+    //       [`rotationY_${i}`]: {
+    //         value: [0, 90, 180, 270, 45, 135, 225, 315][i] || 0,
+    //         min: -180,
+    //         max: 180,
+    //         step: 1,
+    //       },
+    //       [`rotationZ_${i}`]: {
+    //         value: 0,
+    //         min: -180,
+    //         max: 180,
+    //         step: 1,
+    //       },
+    //     }
+    //   );
 
-      positionControls[i] = sectionControls[`position_${i}`];
-      scaleControls[i] = sectionControls[`scale_${i}`];
-      rotationControls[i] = {
-        x: sectionControls[`rotationX_${i}`] * (Math.PI / 180),
-        y: sectionControls[`rotationY_${i}`] * (Math.PI / 180),
-        z: sectionControls[`rotationZ_${i}`] * (Math.PI / 180),
-      };
-    }
+    //   positionControls[i] = sectionControls[`position_${i}`];
+    //   scaleControls[i] = sectionControls[`scale_${i}`];
+    //   rotationControls[i] = {
+    //     x: sectionControls[`rotationX_${i}`] * (Math.PI / 180),
+    //     y: sectionControls[`rotationY_${i}`] * (Math.PI / 180),
+    //     z: sectionControls[`rotationZ_${i}`] * (Math.PI / 180),
+    //   };
+    // }
 
     // Static positioning controls (when scroll animation is disabled)
-    const {
-      staticPositionX,
-      staticPositionY,
-      staticPositionZ,
-      staticScale,
-      staticRotationX,
-      staticRotationY,
-      staticRotationZ,
-    } = useControls(`Model ${sectionIndex + 1} - Static Position`, {
-      staticPositionX: {
-        value: initialPosition[0],
-        min: -10,
-        max: 10,
-        step: 0.1,
-      },
-      staticPositionY: {
-        value: initialPosition[1],
-        min: -10,
-        max: 10,
-        step: 0.1,
-      },
-      staticPositionZ: {
-        value: initialPosition[2],
-        min: -10,
-        max: 10,
-        step: 0.1,
-      },
-      staticScale: { value: scale, min: 0.1, max: 3, step: 0.05 },
-      staticRotationX: { value: 0, min: -180, max: 180, step: 1 },
-      staticRotationY: { value: 0, min: -180, max: 180, step: 1 },
-      staticRotationZ: { value: 0, min: -180, max: 180, step: 1 },
-    });
+    // const {
+    //   staticPositionX,
+    //   staticPositionY,
+    //   staticPositionZ,
+    //   staticScale,
+    //   staticRotationX,
+    //   staticRotationY,
+    //   staticRotationZ,
+    // } = useControls(`Model ${sectionIndex + 1} - Static Position`, {
+    //   staticPositionX: {
+    //     value: initialPosition[0],
+    //     min: -10,
+    //     max: 10,
+    //     step: 0.1,
+    //   },
+    //   staticPositionY: {
+    //     value: initialPosition[1],
+    //     min: -10,
+    //     max: 10,
+    //     step: 0.1,
+    //   },
+    //   staticPositionZ: {
+    //     value: initialPosition[2],
+    //     min: -10,
+    //     max: 10,
+    //     step: 0.1,
+    //   },
+    //   staticScale: { value: scale, min: 0.1, max: 3, step: 0.05 },
+    //   staticRotationX: { value: 0, min: -180, max: 180, step: 1 },
+    //   staticRotationY: { value: 0, min: -180, max: 180, step: 1 },
+    //   staticRotationZ: { value: 0, min: -180, max: 180, step: 1 },
+    // });
 
     // Create dynamic material
     const transparentMaterial = useMemo(() => {
@@ -194,8 +192,8 @@ const CoffeeModel = forwardRef(
         // Get positions, scales, and rotations for interpolation
         const currentPos = sectionConfig.positions[currentSection] || [0, 0, 0];
         const nextPos = sectionConfig.positions[nextSection] || currentPos;
-        const currentScale = sectionConfig.scales[currentSection] || 1;
-        const nextScale = sectionConfig.scales[nextSection] || currentScale;
+        // const currentScale = sectionConfig.scales[currentSection] || 1;
+        // const nextScale = sectionConfig.scales[nextSection] || currentScale;
         const currentRot = sectionConfig.rotations[currentSection] || {
           x: 0,
           y: 0,
@@ -209,7 +207,7 @@ const CoffeeModel = forwardRef(
         const x = THREE.MathUtils.lerp(currentPos[0], nextPos[0], easeProgress);
         const y = THREE.MathUtils.lerp(currentPos[1], nextPos[1], easeProgress);
         const z = THREE.MathUtils.lerp(currentPos[2], nextPos[2], easeProgress);
-        const s = THREE.MathUtils.lerp(currentScale, nextScale, easeProgress);
+        // const s = THREE.MathUtils.lerp(currentScale, nextScale, easeProgress);
 
         // Interpolate rotations
         const rx = THREE.MathUtils.lerp(currentRot.x, nextRot.x, easeProgress);
@@ -225,9 +223,9 @@ const CoffeeModel = forwardRef(
         groupRef.current.position.lerp(targetPosition, positionSmoothing);
 
         // Scale animation with breathing effect
-        const breathingScale =
-          s + Math.sin(animationTime.current * 2) * (scaleVariation * 0.5);
-        groupRef.current.scale.setScalar(breathingScale);
+        // const breathingScale =
+        //   s + Math.sin(animationTime.current * 2) * (scaleVariation * 0.5);
+        // groupRef.current.scale.setScalar(breathingScale);
 
         // Apply all rotations
         groupRef.current.rotation.x = rx;
@@ -235,25 +233,22 @@ const CoffeeModel = forwardRef(
         groupRef.current.rotation.z = rz;
       } else {
         // Static positioning when scroll animation is disabled
-        const staticPos = new THREE.Vector3(
-          staticPositionX,
-          staticPositionY,
-          staticPositionZ
-        );
-
+        // const staticPos = new THREE.Vector3(
+        //   staticPositionX,
+        //   staticPositionY,
+        //   staticPositionZ
+        // );
         // Apply floating even in static mode
-        const floatOffset =
-          Math.sin(animationTime.current * floatSpeed) * floatAmplitude;
-        staticPos.y += floatOffset;
-
-        groupRef.current.position.lerp(staticPos, positionSmoothing);
-        groupRef.current.scale.setScalar(staticScale);
-
+        // const floatOffset =
+        //   Math.sin(animationTime.current * floatSpeed) * floatAmplitude;
+        // staticPos.y += floatOffset;
+        // groupRef.current.position.lerp(staticPos, positionSmoothing);
+        // groupRef.current.scale.setScalar(staticScale);
         // Apply static rotations (converted from degrees to radians)
-        groupRef.current.rotation.x = staticRotationX * (Math.PI / 180);
-        groupRef.current.rotation.y =
-          staticRotationY * (Math.PI / 180) + baseRotation.current;
-        groupRef.current.rotation.z = staticRotationZ * (Math.PI / 180);
+        // groupRef.current.rotation.x = staticRotationX * (Math.PI / 180);
+        // groupRef.current.rotation.y =
+        //   staticRotationY * (Math.PI / 180) + baseRotation.current;
+        // groupRef.current.rotation.z = staticRotationZ * (Math.PI / 180);
       }
 
       // Continuous base rotation
@@ -302,6 +297,23 @@ const CoffeeModel = forwardRef(
             geometry={nodes.CoffeFluidMesh.geometry}
             material={materials.CoffeeLiquidMaterial}
             position={nodes.CoffeFluidMesh.position}
+            visible={false}
+          />
+
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Coffee.geometry}
+            material={materials.CoffeeMaterial}
+            position={nodes.Coffee.position}
+          />
+
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Foam.geometry}
+            material={materials.FoamMaterial}
+            position={nodes.Foam.position}
           />
         </group>
       </Center>
