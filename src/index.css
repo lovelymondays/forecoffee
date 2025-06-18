@@ -61,7 +61,7 @@ body {
     @apply font-onder w-full text-xl lg:text-2xl;
   }
 
-  .section {
+  .sectionContainer {
     @apply flex text-white h-screen justify-center items-center text-wrap;
   }
 
