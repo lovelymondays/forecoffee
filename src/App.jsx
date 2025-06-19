@@ -10,34 +10,26 @@ import { Leva } from "leva";
 import CoffeeModel from "./components/CoffeModel";
 import Lights from "./components/Lights";
 import Content from "./components/Content";
-import { Perf } from "r3f-perf";
 import "./index.css";
 
 export default function App() {
   const numberOfSections = 5; // Define the number of sections
 
   return (
-    <div className="w-full h-screen">
-      {/* Leva Controls Panel */}
+    <div className="w-full h-screen scrollbar-hide relative ">
       <Leva collapsed={true} />
-
+      {/* <Content /> */}
       <Canvas
         camera={{ position: [0, 0, 10], fov: 50 }}
         shadows
-        className="w-full h-full"
+        className="w-full h-full z-10 fixed top-0 left-0"
       >
         {/* <Perf position="top-left" visible={false} /> */}
 
         <ScrollControls pages={numberOfSections}>
+          <Lights />
+          <Environment preset="city" />
           <Suspense fallback={null}>
-            <Lights />
-            <Environment preset="city" />
-            {/* <ContactShadows
-              position={[0, -2.01, 0]}
-              blur={5}
-              color={"#006041"}
-            /> */}
-
             {/* Single coffee model with scroll animation for sections 1-4 */}
             <CoffeeModel
               scale={0.4}
@@ -59,9 +51,8 @@ export default function App() {
             ))}
           </Suspense>
 
-          {/* Dynamic HTML Content */}
           <Scroll html style={{ width: "100%" }}>
-            {/* The content */}
+            {/* Dynamic HTML Content */}
             <Content />
           </Scroll>
         </ScrollControls>

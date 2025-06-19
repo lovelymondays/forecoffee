@@ -56,9 +56,19 @@ body {
   --tracking-1: 0.5em;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow: hidden; /* Hide scrollbar for the parent div if it's the main scroll container */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 @layer components {
   .titleHeader {
-    @apply font-onder w-full text-xl lg:text-2xl;
+    @apply font-onder w-full text-xl md:text-lg lg:text-2xl;
   }
 
   .sectionContainer {
@@ -66,6 +76,45 @@ body {
   }
 
   .paragraph {
-    @apply font-gortesk  text-lg  lg:text-3xl;
+    @apply font-gortesk text-lg md:text-xl lg:text-3xl;
+  }
+
+  .sectionOneContainer {
+    @apply flex text-white h-screen justify-center items-center text-wrap;
+  }
+  .divOneContainer {
+    @apply text-center text-wrap w-full  justify-between h-auto  space-y-1 lg:space-y-2;
+  }
+
+  .sectionOneTitle {
+    @apply font-onder w-full text-2xl lg:text-xl xl:text-6xl;
+  }
+
+  .sectionOneParagraph {
+    @apply font-gortesk w-full text-2xl tracking-tighter lg:text-4xl;
+  }
+
+  .sectionTwoContainer {
+    @apply flex h-screen text-wrap justify-center text-white flex-col items-end;
+  }
+
+  .divTwoContainer {
+    @apply h-1/5 md:h-1/2 space-y-1 lg:h-1/4 xl:h-1/2 w-2/3 lg:w-1/5 xl:w-1/3 text-wrap lg:justify-between;
+  }
+
+  .sectiontwoTitle {
+    @apply font-onder w-full text-sm lg:text-lg xl:text-2xl tracking-tighter;
+  }
+
+  .sectiontwoParagraph {
+    @apply font-gortesk text-xl tracking-tighter lg:text-3xl;
+  }
+
+  .divThreeContainer {
+    @apply text-center text-wrap space-y-1 lg:space-y-2  w-screen flex-shrink-0 flex items-center justify-center h-[100vh] flex-col  min-w-[70vw] lg:min-w-[50vw];
+  }
+
+  .sectionThreeTitle {
+    @apply font-onder w-full text-2xl lg:text-xl xl:text-3xl text-center;
   }
 }

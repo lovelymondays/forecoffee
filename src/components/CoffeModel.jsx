@@ -68,9 +68,9 @@ const CoffeeModel = forwardRef(
       },
       // Section 1 - "Fresh Beans / Modern Tech / Every Cup"
       {
-        rotation: { x: 0.3, y: Math.PI * 0.5, z: 0.1 },
-        position: { x: -1.5, y: 0.5, z: 0.5 },
-        scale: 1.2,
+        rotation: { x: -0.8, y: Math.PI * 0.5, z: 0.4 },
+        position: { x: -1.5, y: -1.2, z: 0.5 },
+        scale: 0.9,
       },
       // Section 2 - "Our Story"
       {
