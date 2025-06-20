@@ -1,7 +1,6 @@
+import React, { forwardRef, useRef, useMemo, useCallback } from "react";
 import { Center, useGLTF, useScroll } from "@react-three/drei";
-import { forwardRef, useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useControls } from "leva";
 import * as THREE from "three";
 
 const CoffeeModel = forwardRef(
@@ -19,29 +18,15 @@ const CoffeeModel = forwardRef(
     const groupRef = useRef();
     const scroll = useScroll();
 
-    // Leva controls for material properties
-    const {
-      materialOpacity,
-      materialRoughness,
-      materialMetalness,
-      materialTransmission,
-    } = useControls("Material", {
-      materialOpacity: { value: 0.8, min: 0, max: 1 },
-      materialRoughness: { value: 0.1, min: 0, max: 1 },
-      materialMetalness: { value: 0.0, min: 0, max: 1 },
-      materialTransmission: { value: 0.9, min: 0, max: 1 },
-    });
+    const materialOpacity = 0.8;
+    const materialRoughness = 0.1;
+    const materialMetalness = 0.0;
+    const materialTransmission = 0.9;
 
-    // Animation controls
-    const { positionAmplitude, enableRotation, enablePositionChange } =
-      useControls("Animation", {
-        rotationSpeed: { value: 1, min: 0, max: 3 },
-        positionAmplitude: { value: 2, min: 0, max: 5 },
-        enableRotation: true,
-        enablePositionChange: true,
-      });
+    const positionAmplitude = 2;
+    const enableRotation = true;
+    const enablePositionChange = true;
 
-    // Create dynamic material
     const transparentMaterial = useMemo(() => {
       return new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
@@ -58,57 +43,95 @@ const CoffeeModel = forwardRef(
       materialTransmission,
     ]);
 
-    // Define custom animations for each section
-    const sectionAnimations = [
-      // Section 0 - "Grind The Essentials"
-      {
-        rotation: { x: 0, y: 3, z: 0 },
-        position: { x: 0, y: -1, z: 0 },
-        scale: 0.7,
-      },
-      // Section 1 - "Fresh Beans / Modern Tech / Every Cup"
-      {
-        rotation: { x: -0.8, y: Math.PI * 0.5, z: 0.4 },
-        position: { x: -1.5, y: -1.2, z: 0.5 },
-        scale: 0.9,
-      },
-      // Section 2 - "Our Story"
-      {
-        rotation: { x: -0.2, y: Math.PI, z: -0.1 },
-        position: { x: 0, y: -0.8, z: 1 },
-        scale: 0.8,
-      },
-      // Section 3 - "What's Poppin"
-      {
-        rotation: { x: 0.4, y: Math.PI * 1.5, z: 0.2 },
-        position: { x: 1.8, y: 1.2, z: -0.5 },
-        scale: 1.4,
-      },
-      // Section 4 - "Menu Must-Haves" - Hide main model
-      {
-        rotation: { x: 0, y: Math.PI * 2, z: 0 },
-        position: { x: 0, y: 0, z: 2 },
-        scale: 0, // Hide main model
-      },
-    ];
+    // Generate section animations based on numberOfSections
+    const sectionAnimations = useMemo(() => {
+      const baseAnimations = [
+        // Section 0 - "Grind The Essentials"
+        {
+          rotation: { x: 0, y: 3, z: 0 },
+          position: { x: 0, y: -1, z: 0 },
+          scale: 0.7,
+        },
+        // Section 1 - "Fresh Beans / Modern Tech / Every Cup"
+        {
+          rotation: { x: 0, y: Math.PI * 3, z: 0.02 },
+          position: { x: -1.5, y: -1.2, z: 0.5 },
+          scale: 1.1,
+        },
+        // Section 2 - "Our Story"
+        {
+          rotation: { x: -0.3, y: Math.PI, z: -0.3 },
+          position: { x: 0, y: -0.3, z: 1 },
+          scale: 0.5,
+        },
+        // Section 3 - "What's Poppin"
+        {
+          rotation: { x: 0.2, y: Math.PI * 0.7, z: 0 },
+          position: { x: 3, y: -0.9, z: -0.5 },
+          scale: 1.4,
+        },
+        // Section 4 - "Menu Must-Haves" - Hide main model
+        {
+          rotation: { x: 0, y: Math.PI * 2, z: 0 },
+          position: { x: 0, y: 0, z: 2 },
+          scale: 0, // Hide main model
+        },
+      ];
+
+      // Generate additional animations if numberOfSections > 5
+      const animations = [...baseAnimations];
+      while (animations.length < numberOfSections) {
+        const cycleIndex = (animations.length - 5) % baseAnimations.length;
+        const baseAnim = baseAnimations[cycleIndex];
+        const variation = Math.sin(animations.length * 0.5) * 0.3;
+
+        animations.push({
+          rotation: {
+            x: baseAnim.rotation.x + variation,
+            y: baseAnim.rotation.y + variation,
+            z: baseAnim.rotation.z + variation * 0.5,
+          },
+          position: {
+            x: baseAnim.position.x + variation,
+            y: baseAnim.position.y + variation * 0.5,
+            z: baseAnim.position.z + variation * 0.3,
+          },
+          scale: Math.max(0.1, baseAnim.scale + variation * 0.2),
+        });
+      }
+
+      return animations;
+    }, [numberOfSections]);
 
     // Define positions for the 3 models at the end
     const multipleModelPositions = [
-      { x: -5, y: 0, z: 0 }, // Left model
-      { x: 0, y: 0, z: 0 }, // Center model
-      { x: 3, y: 0, z: 0 }, // Right model
+      { x: -5.5, y: -3, z: 0 }, // Left model
+      { x: 0, y: -3, z: 0 }, // Center model
+      { x: 5.5, y: -3, z: 0 }, // Right model
     ];
 
     const multipleModelRotations = [
-      { x: 0, y: -Math.PI * 0.3, z: 0 }, // Left model - slight left turn
-      { x: 0, y: 0, z: 0 }, // Center model - facing forward
-      { x: 0, y: Math.PI * 0.3, z: 0 }, // Right model - slight right turn
+      { x: 0, y: 3.2, z: 0 }, // Left model - slight left turn/
+      { x: 0, y: 3, z: 0 }, // Center model - facing forward
+      { x: 0, y: 2.8, z: 0 }, // Right model - slight right turn
     ];
 
-    const multipleModelScale = [0.2, 0.2, 0.2];
+    const multipleModelScale = [0.6, 0.6, 0.6];
+
+    // Ref callback to handle both internal ref and forwarded ref
+    const setGroupRef = useCallback(
+      (node) => {
+        groupRef.current = node;
+        if (ref) {
+          if (typeof ref === "function") ref(node);
+          else ref.current = node;
+        }
+      },
+      [ref]
+    );
 
     // Animation frame
-    useFrame((state, delta) => {
+    useFrame((state) => {
       if (!groupRef.current || !scrollBasedAnimation) return;
 
       // Get scroll progress (0 to 1)
@@ -116,7 +139,10 @@ const CoffeeModel = forwardRef(
 
       if (isMultiple) {
         // Animation for the 3 models at the end
-        const lastSectionStart = 0.9; // Start appearing at 80% scroll
+        const lastSectionStart = Math.max(
+          0.8,
+          (numberOfSections - 2) / numberOfSections
+        ); // Adjust based on numberOfSections
         const appearProgress = Math.max(
           0,
           (scrollProgress - lastSectionStart) / (1 - lastSectionStart)
@@ -223,16 +249,7 @@ const CoffeeModel = forwardRef(
 
     return (
       <Center>
-        <group
-          {...props}
-          ref={(node) => {
-            groupRef.current = node;
-            if (ref) {
-              if (typeof ref === "function") ref(node);
-              else ref.current = node;
-            }
-          }}
-        >
+        <group {...props} ref={setGroupRef}>
           <mesh
             castShadow
             receiveShadow
@@ -286,6 +303,8 @@ const CoffeeModel = forwardRef(
     );
   }
 );
+
+CoffeeModel.displayName = "CoffeeModel";
 
 export default CoffeeModel;
 useGLTF.preload("./model/cup-foree.glb");

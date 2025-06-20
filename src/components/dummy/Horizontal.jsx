@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Content() {
+export default function Horizontal() {
   const mainRef = useRef();
   const horizontalSectionRef = useRef();
   const scrollWrapperRef = useRef();
@@ -117,9 +117,6 @@ export default function Content() {
             </div>
           </div>
         </section>
-
-
-
 
         {/* fourth screen */}
         <section className="sectionContainer">
