@@ -17,31 +17,31 @@ body {
 
 @font-face {
   font-family: "Dumba";
-  src: url("./src/fonts/Dumba.woff");
+  src: url("/fonts/Dumba.woff");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Onder";
-  src: url("./src/fonts/Onder-Regular.ttf");
+  src: url("/fonts/Onder-Regular.ttf");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "karla";
-  src: url("../src/fonts/Karla-VariableFont_wght.ttf");
+  src: url("/fonts/Karla-VariableFont_wght.ttf");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Plus Jakarta Sans";
-  src: url("./src/fonts/PlusJakartaSans-VariableFont_wght.ttf");
+  src: url("/fonts/PlusJakartaSans-VariableFont_wght.ttf");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Space Grotesk";
-  src: url("./src/fonts/SpaceGrotesk-VariableFont_wght.ttf");
+  src: url("/fonts/SpaceGrotesk-VariableFont_wght.ttf");
   font-weight: 400;
 }
 @theme {

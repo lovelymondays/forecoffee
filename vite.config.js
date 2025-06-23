@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     host: true,
   },
+  assetsInclude: ["**/*.ttf", "**/*.woff", "**/*.woff2"],
 });
 
 /**
