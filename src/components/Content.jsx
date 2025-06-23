@@ -46,13 +46,13 @@ export default function Content() {
       currentX.current
     )}px, ${Math.round(currentY.current)}px, 0)`;
 
-    console.log(
-      "IN VIEW:",
-      "scroll:",
-      scrollProgress.toFixed(2),
-      "progress:",
-      lerpedProgress.toFixed(2)
-    );
+    // console.log(
+    //   "IN VIEW:",
+    //   "scroll:",
+    //   scrollProgress.toFixed(2),
+    //   "progress:",
+    //   lerpedProgress.toFixed(2)
+    // );
   });
 
   return (

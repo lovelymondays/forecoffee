@@ -8,6 +8,8 @@ import Content from "./components/Content";
 export default function App() {
   const numberOfSections = 5;
 
+  console.log("Made by arji maulana kindly visit www.arjism.com");
+
   return (
     <div className="relative w-full h-screen">
       <Canvas
