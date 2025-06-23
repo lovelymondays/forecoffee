@@ -18,13 +18,13 @@ export default function Experience() {
       camera={{ position: [0, 0, 10], fov: 50 }}
       shadows
       className="w-full h-full z-10 fixed top-0 left-0"
-      numberOfSections={numberOfSections}
+      // numberOfSections={numberOfSections}
     >
       <ScrollControls pages={numberOfSections}>
-        <Lights />
-        {/* <OrbitControls /> */}
-        <Environment preset="city" />
         <Suspense fallback={null}>
+          <Lights />
+          {/* <OrbitControls /> */}
+          {/* <Environment preset="city" /> */}
           <CoffeeModel
             scale={0.4}
             scrollBasedAnimation={true}
@@ -42,7 +42,6 @@ export default function Experience() {
             />
           ))}
         </Suspense>
-
         <Scroll html style={{ width: "100%" }}>
           <Content numberOfSections={numberOfSections} />
         </Scroll>

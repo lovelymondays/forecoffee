@@ -8,7 +8,7 @@ function FourthSection() {
         <h1 className="titleHeader mb-5">What's Poppin</h1>
 
         <div className="divFourthContainer">
-          <h2 className="paragraph font-jakarta font-bold bg-black lg:p-2">
+          <h2 className="paragraph font-jakarta font-extrabold  ">
             Fore Experience Launch
           </h2>
           <p className="paragraph">
@@ -18,7 +18,7 @@ function FourthSection() {
         </div>
 
         <div className="divFourthContainer">
-          <h2 className="paragraph font-jakarta font-bold bg-black lg:p-2">
+          <h2 className="paragraph font-jakarta font-extrabold  ">
             World of Coffee 2025 Spotlight
           </h2>
           <p className="paragraph">
@@ -28,7 +28,7 @@ function FourthSection() {
         </div>
 
         <div className="divFourthContainer">
-          <h2 className="paragraph font-jakarta font-bold bg-black lg:p-2">
+          <h2 className="paragraph font-jakarta font-extrabold  ">
             IPO Dreams Realized:
           </h2>
           <p className="paragraph">
